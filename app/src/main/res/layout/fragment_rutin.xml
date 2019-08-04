@@ -39,12 +39,12 @@
 
                 <Spinner
                     android:id="@+id/spinner_bulan"
+                    style="@style/spinnerItemStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    style="@style/spinnerItemStyle"
                     android:background="@android:color/transparent"
                     android:entries="@array/bulan_arrays"
                     android:spinnerMode="dropdown" />
@@ -85,8 +85,6 @@
     </FrameLayout>
 
     <include layout="@layout/content_main_rutin" />
-
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_rutin"
