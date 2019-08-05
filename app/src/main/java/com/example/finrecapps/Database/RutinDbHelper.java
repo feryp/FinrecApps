@@ -21,10 +21,10 @@ public class RutinDbHelper extends SQLiteOpenHelper {
 
 
     private static final String SQL_CREATE_DATABASE = "CREATE TABLE "
-            + RutinEntry.TABLE_NAME+ " ("
+            + RutinEntry.TABLE_NAME + " ("
             + RutinEntry._ID + " INTEGER PRIMARY KEY, "
             + RutinEntry.COLUMN_TANGGAL_RUTIN + " INTEGER, "
-            + RutinEntry.COLUMN_TOTAL_TABUNGAN+ " REAL, "
+            + RutinEntry.COLUMN_TOTAL_TABUNGAN + " REAL, "
             + RutinEntry.COLUMN_SALDO+ " REAL)";
 
 

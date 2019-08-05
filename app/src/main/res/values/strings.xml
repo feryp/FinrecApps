@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Finrec Apps</string>
+    <string name="app_name">Financial Record</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

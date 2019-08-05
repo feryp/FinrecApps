@@ -1,7 +1,6 @@
 package com.example.finrecapps.Fragment;
 
 import android.app.DatePickerDialog;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -142,12 +141,10 @@ public class RutinFragment extends Fragment implements View.OnClickListener, Dat
 //                        break;
 //                }
 
-                RutinDbHelper helper = new RutinDbHelper(getContext());
-                listRutin = helper.selectAll();
                 List<Rutin> asd = new ArrayList<>();
                 for(Rutin rutin :listRutin){
                     Calendar cal = new GregorianCalendar();
-                    cal.setTimeInMillis(rutin.getTimeInMilis());
+                    cal.setTimeInMillis(Long.valueOf(rutin.getTimeInMilis()));
 
                     int y = cal.get(Calendar.YEAR);
                     int m = cal.get(Calendar.MONTH);
@@ -155,7 +152,7 @@ public class RutinFragment extends Fragment implements View.OnClickListener, Dat
                     Log.v("testselect", y + " " + m + " "+d);
                     Log.v("position", m + " p "+ position);
                     if(m == position){
-                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getTotalTabungan(),rutin.getSaldo()));
+                        asd.add(new Rutin(rutin.getId(), Long.valueOf(rutin.getTimeInMilis()),rutin.getTotalTabungan(),rutin.getSaldo()));
                     }
                 }
                 adapter = new RutinAdapter(getContext(), asd);
@@ -190,7 +187,6 @@ public class RutinFragment extends Fragment implements View.OnClickListener, Dat
                 fab_rutin.hide();
             }
         });
-
 
         slideUp.setSlideListener(new SlideUp.SlideListener() {
             @Override
@@ -240,25 +236,6 @@ public class RutinFragment extends Fragment implements View.OnClickListener, Dat
 
                 RutinDbHelper helper = new RutinDbHelper(getContext());
                 helper.insert(tanggalTabungan, totalTabungan, saldo);
-
-                slideUp.animateOut();
-                fab_rutin.show();
-                rvRutin.removeAllViews();
-                RutinDbHelper helper1 = new RutinDbHelper(getContext());
-                listRutin = helper1.selectAll();
-                List<Rutin> asd = new ArrayList<>();
-                for(Rutin rutin :listRutin){
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTimeInMillis(Long.valueOf(rutin.getTimeInMilis()));
-                    Log.v("getlongfdb", String.valueOf(rutin.getTimeInMilis()));
-                    int m = cal.get(Calendar.MONTH);
-                    if(m == 0){
-                        asd.add(new Rutin(rutin.getId(), Long.valueOf(rutin.getTimeInMilis()),rutin.getTotalTabungan(),rutin.getSaldo()));
-                    }
-                }
-                adapter = new RutinAdapter(getContext(), asd);
-                rvRutin.setAdapter(adapter);
-
                 break;
             case R.id.btnHapus:
                 break;

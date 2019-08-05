@@ -17,7 +17,7 @@
     <ImageView
         android:id="@+id/bgFooter"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:contentDescription="footer"
         android:elevation="3dp"
@@ -128,7 +128,7 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/tvForgot"
+                android:id="@+id/tvChangePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cv"
@@ -136,7 +136,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="30dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Forgot ?"
+                android:text="Change Password"
                 android:textColor="@color/colorDarkGrey"
                 android:textSize="18sp" />
 
