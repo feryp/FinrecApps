@@ -1,7 +1,5 @@
-package com.example.finrecapps.fragment;
+package com.example.finrecapps.Fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,16 +8,16 @@ import android.view.ViewGroup;
 
 import com.example.finrecapps.R;
 
-public class RekapFragment extends Fragment {
+
+public class DadakanFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_rekap, container, false);
+        View v = inflater.inflate(R.layout.fragment_dadakan, container, false);
         // Inflate the layout for this fragment
         return v;
     }
-
 
 }

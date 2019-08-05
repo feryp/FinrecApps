@@ -1,13 +1,13 @@
-package com.example.finrecapps.adapter;
+package com.example.finrecapps.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.finrecapps.fragment.DadakanFragment;
-import com.example.finrecapps.fragment.KasFragment;
-import com.example.finrecapps.fragment.RekapFragment;
-import com.example.finrecapps.fragment.RutinFragment;
+import com.example.finrecapps.Fragment.DadakanFragment;
+import com.example.finrecapps.Fragment.KasFragment;
+import com.example.finrecapps.Fragment.RekapFragment;
+import com.example.finrecapps.Fragment.RutinFragment;
 
 public class PageAdapter extends FragmentStatePagerAdapter {
 

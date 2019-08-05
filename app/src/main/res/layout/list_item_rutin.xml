@@ -46,7 +46,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/tv_isi_total_tabungan"
+        android:id="@+id/tv_nilai_total_tabungan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -58,10 +58,10 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/tv_isi_saldo"
+        android:id="@+id/tv_nilai_saldo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_isi_total_tabungan"
+        android:layout_below="@+id/tv_nilai_total_tabungan"
         android:layout_alignParentRight="true"
         android:layout_marginTop="8dp"
         android:layout_marginRight="20dp"
