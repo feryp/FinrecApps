@@ -148,7 +148,7 @@ public class RutinFragment extends Fragment implements View.OnClickListener, Dat
                 for(Rutin rutin :listRutin){
                     Calendar cal = new GregorianCalendar();
                     cal.setTimeInMillis(rutin.getTimeInMilis());
-                    cal.setTimeInMillis(Long.valueOf(rutin.getTimeInMilis()));
+                    cal.setTimeInMillis(rutin.getTimeInMilis());
 
                     int y = cal.get(Calendar.YEAR);
                     int m = cal.get(Calendar.MONTH);
@@ -157,7 +157,7 @@ public class RutinFragment extends Fragment implements View.OnClickListener, Dat
                     Log.v("position", m + " p "+ position);
                     if(m == position){
                         asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getTotalTabungan(),rutin.getSaldo()));
-                        asd.add(new Rutin(rutin.getId(), Long.valueOf(rutin.getTimeInMilis()),rutin.getTotalTabungan(),rutin.getSaldo()));
+                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getTotalTabungan(),rutin.getSaldo()));
                     }
                 }
                 adapter = new RutinAdapter(getContext(), asd);
