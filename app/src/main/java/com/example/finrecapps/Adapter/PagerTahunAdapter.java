@@ -9,17 +9,18 @@ import com.example.finrecapps.Fragment.KasFragment;
 import com.example.finrecapps.Fragment.RekapFragment;
 import com.example.finrecapps.Fragment.RutinFragment;
 
-public class PageAdapter extends FragmentStatePagerAdapter {
+public class PagerTahunAdapter extends FragmentStatePagerAdapter {
 
     int counttab;
 
-    public PageAdapter(FragmentManager fm, int counttab) {
+    public PagerTahunAdapter(FragmentManager fm, int counttab) {
         super(fm);
         this.counttab = counttab;
     }
 
     @Override
     public Fragment getItem(int i) {
+
         switch (i) {
             case 0:
                 RutinFragment rutinFragment = new RutinFragment();
@@ -33,10 +34,9 @@ public class PageAdapter extends FragmentStatePagerAdapter {
             case 3:
                 RekapFragment rekapFragment = new RekapFragment();
                 return rekapFragment;
-                default:
-                    return null;
+            default:
+                return null;
         }
-
     }
 
     @Override

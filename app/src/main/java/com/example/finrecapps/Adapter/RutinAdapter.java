@@ -1,14 +1,22 @@
 package com.example.finrecapps.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.finrecapps.Database.RutinDbHelper;
+import com.example.finrecapps.MainActivity;
 import com.example.finrecapps.Model.Rutin;
 import com.example.finrecapps.R;
 
@@ -19,10 +27,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHolder> {
+public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHolder> implements AdapterView.OnItemSelectedListener {
 
-    Context c;
-    List<Rutin> rutinList;
+
+    private Context c;
+    private List<Rutin> rutinList;
+
 
 
     public RutinAdapter(Context c, List<Rutin> rutinList) {
@@ -50,8 +60,6 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
         // using Date() constructor
         Date da = c.getTime();
 
-
-
         // Formatting Date according to the
         // given format
         System.out.println(simple.format(da));
@@ -60,6 +68,7 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
         rutinViewHolder.tvTanggal.setText(fors);
         rutinViewHolder.tvTotalTabungan.setText(String.valueOf(rutinModel.getTotalTabungan()));
         rutinViewHolder.tvSaldo.setText(String.valueOf(rutinModel.getSaldo()));
+        rutinViewHolder.bind(rutinList.get(i));
 
     }
 
@@ -68,15 +77,29 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
         return rutinList.size();
     }
 
-    public class RutinViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    public class RutinViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private TextView tvTotalTabungan, tvSaldo, tvTanggal;
+
+        Rutin rutin;
 
         public RutinViewHolder(@NonNull View v) {
             super(v);
 
-            tvTotalTabungan = v.findViewById(R.id.tv_nilai_total_tabungan);
-            tvSaldo = v.findViewById(R.id.tv_nilai_saldo);
+            v.setOnClickListener(this);
+            v.setOnLongClickListener(this);
+//            tvTotalTabungan = v.findViewById(R.id.tv_nilai_total_tabungan);
+//            tvSaldo = v.findViewById(R.id.tv_nilai_saldo);
             tvTanggal = v.findViewById(R.id.tv_waktu);
 
         }
@@ -89,22 +112,50 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
             this.tvTotalTabungan = tvTotalTabungan;
         }
 
-        public TextView getTvSaldo() {
-            return tvSaldo;
-        }
-
-        public void setTvSaldo(TextView tvSaldo) {
-            this.tvSaldo = tvSaldo;
-        }
-
-        public TextView getTvTanggal() {
-            return tvTanggal;
-        }
-
-        public void setTvTanggal(TextView tvTanggal) {
-            this.tvTanggal = tvTanggal;
+        public void bind(Rutin rutin) {
+            this.rutin = rutin;
         }
 
 
+        @Override
+        public void onClick(View v) {
+
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            showDialog();
+            return false;
+        }
+
+        void showDialog() {
+            AlertDialog alertDialog = new AlertDialog.Builder(itemView.getContext()).create();
+            alertDialog.setTitle("Hapus Data");
+            alertDialog.setMessage("Apakah anda ingin menghapus data ini ? ");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            RutinDbHelper helper = new RutinDbHelper(itemView.getContext());
+
+                            int deletedRows = helper.delete(Integer.valueOf(rutin.getId()));
+
+
+                            Toast.makeText(itemView.getContext(), deletedRows + " item terhapus", Toast.LENGTH_SHORT).show();
+                            Context context = itemView.getContext();
+                            ((MainActivity) context).finish();
+                            context.startActivity(new Intent(context, MainActivity.class));
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        }
     }
+
 }

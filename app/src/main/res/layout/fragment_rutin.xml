@@ -7,67 +7,64 @@
     android:background="@color/colorWhite"
     tools:context=".Fragment.RutinFragment">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_profile_pemasok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Pilih Bulan"
-            android:textColor="#636262"
-            android:textSize="18sp" />
+        <LinearLayout
+            android:id="@+id/container_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_rutin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:scrollbars="vertical">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/jenis_perusahaan"
+            android:id="@+id/container_total_rutin"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/tv_profile_pemasok"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/spinner_border">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/container_recyclerView">
 
-            <Spinner
-                android:id="@+id/spinner_bulan"
-                style="@style/spinnerItemStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="@android:color/transparent"
-                android:entries="@array/bulan_arrays"
-                android:spinnerMode="dropdown" />
-
-            <ImageView
+            <TextView
+                android:id="@+id/tv_ket_total_rutin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_gravity="center"
-                android:layout_marginRight="18dp"
-                android:src="@drawable/ic_sort_down" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Total Rutin"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_total_pembayaran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Rp. 0"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
 
         </RelativeLayout>
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_rutin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:scrollbars="vertical">
-
-        </android.support.v7.widget.RecyclerView>
-
-    </LinearLayout>
-
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/scrim"

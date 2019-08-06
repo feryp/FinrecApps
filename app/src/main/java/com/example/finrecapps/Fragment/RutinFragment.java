@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.finrecapps.Adapter.RutinAdapter;
@@ -41,14 +42,14 @@ import java.util.List;
 import java.util.TimeZone;
 
 
-public class RutinFragment extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
+public class RutinFragment extends Fragment  {
 
     private SlideUp slideUp;
     private View scrim;
     private View slideView;
     private FloatingActionButton fab_rutin;
 
-    Spinner spinnerBulan;
+//    Spinner spinnerBulan;
 
     Button btnSimpan, btnHapus;
 
@@ -61,46 +62,58 @@ public class RutinFragment extends Fragment implements View.OnClickListener, Dat
     List<Rutin> listRutin;
     RutinAdapter adapter;
 
+    int containerId;
+
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_rutin, container, false);
-
-        rvRutin = v.findViewById(R.id.rv_rutin);
-        rvRutin.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvRutin.setHasFixedSize(true);
-        try{
-
-            RutinDbHelper helper = new RutinDbHelper(getContext());
-            listRutin = helper.selectAll();
-            List<Rutin> asd = new ArrayList<>();
-            for(Rutin rutin :listRutin){
-                Calendar cal = Calendar.getInstance();
-                cal.setTimeInMillis(Long.valueOf(rutin.getTimeInMilis()));
-                Log.v("getlongfdb", String.valueOf(rutin.getTimeInMilis()));
-                int m = cal.get(Calendar.MONTH);
-                if(m == 0){
-                    asd.add(new Rutin(rutin.getId(), Long.valueOf(rutin.getTimeInMilis()),rutin.getTotalTabungan(),rutin.getSaldo()));
-                }
-            }
-            adapter = new RutinAdapter(getContext(), asd);
-            rvRutin.setAdapter(adapter);
-        }catch(NullPointerException ex){
-            ex.printStackTrace();
-        }
-
-
-        spinnerBulan = v.findViewById(R.id.spinner_bulan);
-
-
-
-        spinnerBulan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        final View v = inflater.inflate(R.layout.fragment_rutin, container, false);
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                spinnerBulan.getSelectedItem();
-//                Log.v("position", )
-                rvRutin.removeAllViews();
+            public void onClick(View v) {
+                slideUp.animateOut();
+                fab_rutin.show();
+
+            }
+        });
+
+
+//        rvRutin = v.findViewById(R.id.rv_rutin);
+//        rvRutin.setLayoutManager(new LinearLayoutManager(getContext()));
+//        rvRutin.setHasFixedSize(true);
+//        try{
+//
+//            RutinDbHelper helper = new RutinDbHelper(getContext());
+//            listRutin = helper.selectAll();
+//            List<Rutin> asd = new ArrayList<>();
+//            for(Rutin rutin :listRutin){
+//                Calendar cal = Calendar.getInstance();
+//                cal.setTimeInMillis(Long.valueOf(rutin.getTimeInMilis()));
+//                Log.v("getlongfdb", String.valueOf(rutin.getTimeInMilis()));
+//                int m = cal.get(Calendar.MONTH);
+//                if(m == 0){
+//                    asd.add(new Rutin(rutin.getId(), Long.valueOf(rutin.getTimeInMilis()),rutin.getTotalTabungan(),rutin.getSaldo()));
+//                }
+//            }
+//            adapter = new RutinAdapter(getContext(), asd);
+//            rvRutin.setAdapter(adapter);
+//        }catch(NullPointerException ex){
+//            ex.printStackTrace();
+//        }
+
+
+//        spinnerBulan = v.findViewById(R.id.spinner_bulan);
+//
+//
+//
+//        spinnerBulan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+////                spinnerBulan.getSelectedItem();
+////                Log.v("position", )
+//                rvRutin.removeAllViews();
 
 //                String as = null;
 //                switch (position){
@@ -142,37 +155,37 @@ public class RutinFragment extends Fragment implements View.OnClickListener, Dat
 //                        break;
 //                }
 
-                RutinDbHelper helper = new RutinDbHelper(getContext());
-                listRutin = helper.selectAll();
-                List<Rutin> asd = new ArrayList<>();
-                for(Rutin rutin :listRutin){
-                    Calendar cal = new GregorianCalendar();
-                    cal.setTimeInMillis(rutin.getTimeInMilis());
-                    cal.setTimeInMillis(rutin.getTimeInMilis());
-
-                    int y = cal.get(Calendar.YEAR);
-                    int m = cal.get(Calendar.MONTH);
-                    int d = cal.get(Calendar.DAY_OF_MONTH);
-                    Log.v("testselect", y + " " + m + " "+d);
-                    Log.v("position", m + " p "+ position);
-                    if(m == position){
-                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getTotalTabungan(),rutin.getSaldo()));
-                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getTotalTabungan(),rutin.getSaldo()));
-                    }
-                }
-                adapter = new RutinAdapter(getContext(), asd);
-                adapter.notifyDataSetChanged();
-                rvRutin.setAdapter(adapter);
-
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//                RutinDbHelper helper = new RutinDbHelper(getContext());
+//                listRutin = helper.selectAll();
+//                List<Rutin> asd = new ArrayList<>();
+//                for(Rutin rutin :listRutin){
+//                    Calendar cal = new GregorianCalendar();
+//                    cal.setTimeInMillis(rutin.getTimeInMilis());
+//                    cal.setTimeInMillis(rutin.getTimeInMilis());
+//
+//                    int y = cal.get(Calendar.YEAR);
+//                    int m = cal.get(Calendar.MONTH);
+//                    int d = cal.get(Calendar.DAY_OF_MONTH);
+//                    Log.v("testselect", y + " " + m + " "+d);
+//                    Log.v("position", m + " p "+ position);
+//                    if(m == position){
+//                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getTotalTabungan(),rutin.getSaldo()));
+//                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getTotalTabungan(),rutin.getSaldo()));
+//                    }
+//                }
+//                adapter = new RutinAdapter(getContext(), asd);
+//                adapter.notifyDataSetChanged();
+//                rvRutin.setAdapter(adapter);
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         slideView = v.findViewById(R.id.slideView);
         scrim = v.findViewById(R.id.scrim);
@@ -180,10 +193,10 @@ public class RutinFragment extends Fragment implements View.OnClickListener, Dat
 
         slideUp = new SlideUp(slideView);
         slideUp.hideImmediately();
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(),R.array.bulan_arrays, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
-        spinnerBulan.setAdapter(adapter);
+//
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(),R.array.bulan_arrays, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
+//        spinnerBulan.setAdapter(adapter);
 
         fab_rutin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,87 +226,98 @@ public class RutinFragment extends Fragment implements View.OnClickListener, Dat
         btnSimpan = v.findViewById(R.id.btnSimpan);
         btnHapus = v.findViewById(R.id.btnHapus);
 
-        etTotalTabungan = v.findViewById(R.id.et_total_tabungan);
-        etSaldo = v.findViewById(R.id.et_saldo);
+//        etTotalTabungan = v.findViewById(R.id.et_total_tabungan);
+//        etSaldo = v.findViewById(R.id.et_saldo);
 
 
         etTanggalTabungan = v.findViewById(R.id.et_tanggal_tabungan);
         etTanggalTabungan.setKeyListener(null);
 
 
-        btnSimpan.setOnClickListener(this);
-        btnHapus.setOnClickListener(this);
-        etTanggalTabungan.setOnClickListener(this);
+//        btnSimpan.setOnClickListener(this);
+//        btnHapus.setOnClickListener(this);
+//        etTanggalTabungan.setOnClickListener(this);
 
 
 
         return v;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btnSimpan:
-
-                long tanggalTabungan = tgl;
-                double totalTabungan = Double.parseDouble(etTotalTabungan.getText().toString());
-                double saldo = Double.parseDouble(etSaldo.getText().toString());
-
-                RutinDbHelper helper = new RutinDbHelper(getContext());
-                helper.insert(tanggalTabungan, totalTabungan, saldo);
-
-                slideUp.animateOut();
-                fab_rutin.show();
-                rvRutin.removeAllViews();
-                RutinDbHelper helper1 = new RutinDbHelper(getContext());
-                listRutin = helper1.selectAll();
-                List<Rutin> asd = new ArrayList<>();
-                for(Rutin rutin :listRutin){
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTimeInMillis(Long.valueOf(rutin.getTimeInMilis()));
-                    Log.v("getlongfdb", String.valueOf(rutin.getTimeInMilis()));
-                    int m = cal.get(Calendar.MONTH);
-                    if(m == 0){
-                        asd.add(new Rutin(rutin.getId(), Long.valueOf(rutin.getTimeInMilis()),rutin.getTotalTabungan(),rutin.getSaldo()));
-                    }
-                }
-                adapter = new RutinAdapter(getContext(), asd);
-                rvRutin.setAdapter(adapter);
-
-                break;
-            case R.id.btnHapus:
-                break;
-
-            case R.id.et_tanggal_tabungan:
-                Calendar cal = Calendar.getInstance();
-                DatePickerDialog dialog = new DatePickerDialog(getContext(),  this, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-
-                dialog.show();
-
-                break;
-
-        }
-    }
-
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        c.set(year, month, dayOfMonth);
-        DateFormat format = new SimpleDateFormat("dd MMM yyyy");
-
-        etTanggalTabungan.setText(format.format(c.getTime()));
-
-        tgl = c.getTimeInMillis();
-
-        Calendar s = Calendar.getInstance();
-        s.setTimeInMillis(tgl);
-
-        Log.v("testinsert", String.valueOf(s.getTimeInMillis()));
-        Log.v("testinsert", String.valueOf(s.get(Calendar.MONTH)));
+//    @RequiresApi(api = Build.VERSION_CODES.N)
+//    @Override
+//    public void onClick(final View v) {
+//        switch (v.getId()){
+//            case R.id.btnSimpan:
+//
+//                long tanggalTabungan = tgl;
+//                double totalTabungan = Double.parseDouble(etTotalTabungan.getText().toString());
+//                double saldo = Double.parseDouble(etSaldo.getText().toString());
+//
+//                RutinDbHelper helper = new RutinDbHelper(getContext());
+//                helper.insert(tanggalTabungan, totalTabungan, saldo);
+//
+//                slideUp.animateOut();
+//                fab_rutin.show();
+//                rvRutin.removeAllViews();
+//                RutinDbHelper helper1 = new RutinDbHelper(getContext());
+//                listRutin = helper1.selectAll();
+//                List<Rutin> asd = new ArrayList<>();
+//                for(Rutin rutin :listRutin){
+//                    Calendar cal = Calendar.getInstance();
+//                    cal.setTimeInMillis(Long.valueOf(rutin.getTimeInMilis()));
+//                    Log.v("getlongfdb", String.valueOf(rutin.getTimeInMilis()));
+//                    int m = cal.get(Calendar.MONTH);
+//                    if(m == spinnerBulan.getSelectedItemPosition()){
+//                        asd.add(new Rutin(rutin.getId(), Long.valueOf(rutin.getTimeInMilis()),rutin.getTotalTabungan(),rutin.getSaldo()));
+//                    }
+//                }
+//
+//
+//                adapter = new RutinAdapter(getContext(), asd);
+//                rvRutin.setAdapter(adapter);
+//
+//                clear();
+//
+//                break;
+//            case R.id.btnHapus:
+//                clear();
+//                break;
+//
+//            case R.id.et_tanggal_tabungan:
+//                Calendar cal = Calendar.getInstance();
+//                DatePickerDialog dialog = new DatePickerDialog(getContext(),  this, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+//
+//                dialog.show();
+//
+//                break;
+//
+//        }
+//    }
 
 
-    }
+//    @Override
+//    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//        Calendar c = Calendar.getInstance();
+//        c.set(year, month, dayOfMonth);
+//        DateFormat format = new SimpleDateFormat("dd MMM yyyy");
+//
+//        etTanggalTabungan.setText(format.format(c.getTime()));
+//
+//        tgl = c.getTimeInMillis();
+//
+//        Calendar s = Calendar.getInstance();
+//        s.setTimeInMillis(tgl);
+//
+//        Log.v("testinsert", String.valueOf(s.getTimeInMillis()));
+//        Log.v("testinsert", String.valueOf(s.get(Calendar.MONTH)));
+//
+//
+//    }
+//
+//    void clear(){
+//        etSaldo.setText("");
+//        etTanggalTabungan.setText("");
+//        etTotalTabungan.setText("");
+//    }
 }
 

@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChangePasswordActivity"
-            android:theme="@style/AppTheme.FullScreen"></activity>
+        <activity android:name=".PeriodeTahunActivity"></activity>
+        <activity android:name=".PeriodeBulanActivity" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ChangePasswordActivity"
             android:theme="@style/AppTheme.FullScreen" />
         <activity
             android:name=".LoginActivity"

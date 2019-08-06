@@ -27,4 +27,14 @@
         <item>November</item>
         <item>Desember</item>
     </string-array>
+
+    <string-array name="tahun_arrays">
+        <item>2019</item>
+        <item>2018</item>
+        <item>2017</item>
+        <item>2016</item>
+        <item>2015</item>
+        <item>2014</item>
+        <item>2013</item>
+    </string-array>
 </resources>

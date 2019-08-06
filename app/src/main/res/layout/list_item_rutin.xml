@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,36 +12,65 @@
         android:layout_height="130dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/container_rutin">
+
         <TextView
-            android:id="@+id/tv_total_tabungan"
+            android:id="@+id/tv_jenis_rutin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Total Tabungan"
+            android:text="Jenis Rutin"
             android:textAllCaps="false"
             android:textColor="@color/colorBlack"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tv_saldo"
+            android:id="@+id/tv_jumlah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_total_tabungan"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Saldo"
+            android:text="Jumlah"
             android:textAllCaps="false"
             android:textColor="@color/colorBlack"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_isi_rutin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="18dp"
+            android:text="Isi"
+            android:layout_below="@+id/tv_jenis_rutin"
+            android:fontFamily="@font/roboto_regular"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_jumlah_rutin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_jumlah"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Rp. 0"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="18sp" />
+
 
         <TextView
             android:id="@+id/tv_waktu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_saldo"
+            android:layout_below="@+id/tv_isi_rutin"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
@@ -52,30 +80,7 @@
             android:textColor="@color/colorBlack"
             android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/tv_nilai_total_tabungan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="18dp"
-            android:layout_marginRight="20dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="Rp. 0"
-            android:textColor="@color/colorDarkGrey"
-            android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/tv_nilai_saldo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_nilai_total_tabungan"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="20dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="Rp. 0"
-            android:textColor="@color/colorDarkGrey"
-            android:textSize="18sp" />
 
 
     </RelativeLayout>

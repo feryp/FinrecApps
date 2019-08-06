@@ -51,14 +51,14 @@
                 android:id="@+id/et_tanggal_tabungan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tanggal Tabungan"
+                android:hint="Tanggal Kegiatan"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorBlack" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/total_tabungan"
+            android:id="@+id/jenis_rutin"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,18 +69,18 @@
             app:boxStrokeColor="@color/colorBlack">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_total_tabungan"
+                android:id="@+id/et_jenis_rutin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Total Tabungan"
-                android:inputType="number"
+                android:hint="Jenis Rutin"
+                android:inputType="text"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorBlack" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/saldo"
+            android:id="@+id/jumlah"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,10 +91,10 @@
             app:boxStrokeColor="@color/colorBlack">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/et_saldo"
+                android:id="@+id/et_jumlah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Saldo"
+                android:hint="Jumlah"
                 android:inputType="number"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorBlack" />
