@@ -9,7 +9,7 @@
 
         android:id="@+id/container_list_penjualan"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/container_rutin">
 
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Jenis Rutin"
             android:textAllCaps="false"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:fontFamily="@font/roboto_bold"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="8dp"
             android:text="Isi"
             android:layout_below="@+id/tv_jenis_rutin"
             android:fontFamily="@font/roboto_regular"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tv_jumlah"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="20dp"
             android:fontFamily="@font/roboto_regular"
             android:text="Rp. 0"
@@ -72,16 +72,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_isi_rutin"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto_regular"
             android:text="04 Agustus 2019"
             android:textAllCaps="false"
             android:textColor="@color/colorBlack"
             android:textSize="14sp" />
-
-
-
 
     </RelativeLayout>
 
