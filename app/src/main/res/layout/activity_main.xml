@@ -23,24 +23,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:text="Financial Record"-->
-                    <!--android:textColor="@color/colorWhite"-->
-                    <!--android:textSize="20sp"-->
-                    <!--android:textStyle="bold" />-->
-
-
-                <ImageView
-                    android:id="@+id/im_cancel"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:text="Logout"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_more" />
+                    android:fontFamily="@font/roboto_regular" />
+
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/im_cancel"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:src="@drawable/ic_more" />-->
 
             </RelativeLayout>
 
@@ -79,7 +81,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="10dp">
 
                 <LinearLayout
@@ -128,7 +130,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="20dp"
                                 android:fontFamily="@font/roboto_bold"
-                                android:text="Bulanan"
+                                android:text="Bulan"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="50sp" />
 
@@ -142,8 +144,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="2dp">
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -191,7 +193,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="20dp"
                                 android:fontFamily="@font/roboto_bold"
-                                android:text="Tahunan"
+                                android:text="Tahun"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="50sp" />
 

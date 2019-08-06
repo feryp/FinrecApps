@@ -5,12 +5,15 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.finrecapps.Adapter.PagerBulanAdapter;
 
-public class PeriodeTahunActivity extends AppCompatActivity {
+public class PeriodeTahunActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Spinner spinnerTahun;
 
@@ -23,9 +26,14 @@ public class PeriodeTahunActivity extends AppCompatActivity {
 
         spinnerTahun = findViewById(R.id.spinner_tahun);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.tahun_arrays, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.tahun_arrays,
+                R.layout.simple_spinner_dropdown);
+
+        adapter.setDropDownViewResource(R.layout.color_spinner);
         spinnerTahun.setAdapter(adapter);
+        spinnerTahun.setOnItemSelectedListener(this);
 
         tabLayout.addTab(tabLayout.newTab().setText("Rutin"));
         tabLayout.addTab(tabLayout.newTab().setText("Kas"));
@@ -54,5 +62,15 @@ public class PeriodeTahunActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, parent.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
