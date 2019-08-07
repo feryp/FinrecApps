@@ -25,23 +25,28 @@ import com.example.finrecapps.PeriodeBulanActivity;
 import com.example.finrecapps.R;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHolder> implements AdapterView.OnItemSelectedListener {
+public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHolder> {
 
 
     private Context c;
     private List<Rutin> rutinList;
+    private final OnItemClickListener listener;
+
+    private int position;
 
 
 
-    public RutinAdapter(Context c, List<Rutin> rutinList) {
+    public RutinAdapter(Context c, List<Rutin> rutinList, OnItemClickListener listener) {
         this.c = c;
         this.rutinList = rutinList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -63,18 +68,27 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
         // Creating date from milliseconds
         // using Date() constructor
         Date da = c.getTime();
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
 
         // Formatting Date according to the
         // given format
         System.out.println(simple.format(da));
+        String as = decimalFormat.format(rutinList.get(i).getSaldo());
 
         String fors = simple.format(da);
         rutinViewHolder.tvTanggal.setText(fors);
         rutinViewHolder.tvJenisAkun.setText(rutinModel.getJenisAkun());
-        rutinViewHolder.tvSaldo.setText(String.valueOf(rutinModel.getSaldo()));
-        rutinViewHolder.bind(rutinList.get(i));
+        rutinViewHolder.tvSaldo.setText("Rp " + as);
+//        rutinViewHolder.tvSaldo.setText(String.valueOf(rutinModel.getSaldo()));
+        rutinViewHolder.bind(rutinList.get(i), listener);
 
 
+
+
+    }
+
+    public Rutin getRutin(){
+        return rutinList.get(position);
     }
 
     @Override
@@ -82,17 +96,7 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
         return rutinList.size();
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    public class RutinViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public class RutinViewHolder extends RecyclerView.ViewHolder implements  View.OnLongClickListener {
 
         private TextView tvJenisAkun, tvSaldo, tvTanggal;
 
@@ -101,7 +105,6 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
         public RutinViewHolder(@NonNull View v) {
             super(v);
 
-            v.setOnClickListener(this);
             v.setOnLongClickListener(this);
             tvJenisAkun = v.findViewById(R.id.tv_isi_rutin);
             tvSaldo = v.findViewById(R.id.tv_jumlah_rutin);
@@ -111,14 +114,19 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
 
 
 
-        public void bind(Rutin rutin) {
+        public void bind(final Rutin rutin, final OnItemClickListener listener) {
             this.rutin = rutin;
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(v, rutin);
+
+                }
+            });
         }
 
 
-        @Override
-        public void onClick(View v) {
-        }
+
 
         @Override
         public boolean onLongClick(View v) {
@@ -155,5 +163,11 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
             alertDialog.show();
         }
     }
+
+    public interface OnItemClickListener{
+        void onItemClick(View v, Rutin rutin);
+    }
+
+
 
 }

@@ -34,6 +34,7 @@ import com.example.finrecapps.R;
 import com.mancj.slideup.SlideUp;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,7 +43,7 @@ import java.util.List;
 
 
 public class RutinBulanFragment extends Fragment
-        implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
+        implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     private SlideUp slideUp;
     private View scrim;
@@ -57,21 +58,24 @@ public class RutinBulanFragment extends Fragment
     RutinAdapter adapter;
     TextView tvTotalPerbulan;
 
-    int a ;
+    int a;
 
     int idForUpdate;
     boolean isUpdate;
 
     double totalPerbulan;
 
+    DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
+
     RutinAdapter.OnItemClickListener listener;
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        try{
+        try {
             a = getArguments().getInt("month");
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             a = 0;
         }
 
@@ -109,8 +113,6 @@ public class RutinBulanFragment extends Fragment
                 etSaldo.setText(String.valueOf(saldo));
 
 
-
-
             }
         };
 
@@ -139,11 +141,9 @@ public class RutinBulanFragment extends Fragment
         etTanggalTabungan.setKeyListener(null);
         etTanggalTabungan.setOnClickListener(this);
         tvTotalPerbulan = v.findViewById(R.id.tv_total_jumlah_pebulan);
+
+
         // INIT VIEW END
-
-
-
-
 
 
         v.setOnClickListener(new View.OnClickListener() {
@@ -156,30 +156,32 @@ public class RutinBulanFragment extends Fragment
             }
         });
 
-        try{
+        try {
 
             RutinDbHelper helper = new RutinDbHelper(getContext());
             listRutin = helper.selectAll();
             List<Rutin> filterList = new ArrayList<>();
-            for(Rutin rutin :listRutin){
+            for (Rutin rutin : listRutin) {
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(rutin.getTimeInMilis());
                 Log.v("getlongfdb", String.valueOf(rutin.getTimeInMilis()));
                 int m = cal.get(Calendar.MONTH);
-                if(m == 0){
-                    filterList.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getJenisAkun(),rutin.getSaldo()));
+                if (m == 0) {
+                    filterList.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(), rutin.getJenisAkun(), rutin.getSaldo()));
                     totalPerbulan = totalPerbulan + rutin.getSaldo();
                 }
             }
 
 
-            adapter = new RutinAdapter(getContext(), listRutin,listener);
+            adapter = new RutinAdapter(getContext(), listRutin, listener);
 //            rvRutin.notifyAll();
             rvRutin.setAdapter(adapter);
-            tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
+            String total = decimalFormat.format(totalPerbulan);
+            tvTotalPerbulan.setText("Rp " + total);
+//            tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
 
-            Log.v("itemCount",adapter.getItemCount()+"");
-        }catch(NullPointerException ex){
+            Log.v("itemCount", adapter.getItemCount() + "");
+        } catch (NullPointerException ex) {
             ex.printStackTrace();
         }
 
@@ -234,7 +236,7 @@ public class RutinBulanFragment extends Fragment
                 RutinDbHelper helper = new RutinDbHelper(getContext());
                 listRutin = helper.selectAll();
                 List<Rutin> asd = new ArrayList<>();
-                for(Rutin rutin :listRutin){
+                for (Rutin rutin : listRutin) {
                     Calendar cal = Calendar.getInstance();
                     cal.setTimeInMillis(rutin.getTimeInMilis());
                     cal.setTimeInMillis(rutin.getTimeInMilis());
@@ -242,17 +244,19 @@ public class RutinBulanFragment extends Fragment
                     int y = cal.get(Calendar.YEAR);
                     int m = cal.get(Calendar.MONTH);
                     int d = cal.get(Calendar.DAY_OF_MONTH);
-                    Log.v("testselect", y + " " + m + " "+d);
-                    Log.v("position", m + " p "+ position);
-                    if(m == position){
-                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getJenisAkun(),rutin.getSaldo()));
+                    Log.v("testselect", y + " " + m + " " + d);
+                    Log.v("position", m + " p " + position);
+                    if (m == position) {
+                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(), rutin.getJenisAkun(), rutin.getSaldo()));
                         totalPerbulan = totalPerbulan + rutin.getSaldo();
                     }
                 }
                 adapter = new RutinAdapter(getContext(), asd, listener);
                 adapter.notifyDataSetChanged();
                 rvRutin.setAdapter(adapter);
-                tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
+                String total = decimalFormat.format(totalPerbulan);
+                tvTotalPerbulan.setText("Rp " + total);
+//                tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
 
 
             }
@@ -285,7 +289,7 @@ public class RutinBulanFragment extends Fragment
 
             @Override
             public void onVisibilityChanged(int i) {
-                if (i == View.GONE){
+                if (i == View.GONE) {
                     fab_rutin.show();
                     clear();
                     isUpdate = false;
@@ -295,13 +299,12 @@ public class RutinBulanFragment extends Fragment
         });
 
 
-
         return v;
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnSimpan:
                 totalPerbulan = 0;
                 long tanggalTabungan = tgl;
@@ -311,14 +314,14 @@ public class RutinBulanFragment extends Fragment
                 RutinDbHelper helper = new RutinDbHelper(getContext());
 
 
-                if(isUpdate){
+                if (isUpdate) {
                     long time;
                     DateFormat formatter = new SimpleDateFormat("dd MMM yyyy"); // Make sure user insert date into edittext in this format.
 
                     Date dateObject;
 
-                    try{
-                        String dob_var=(etTanggalTabungan.getText().toString());
+                    try {
+                        String dob_var = (etTanggalTabungan.getText().toString());
 
                         dateObject = formatter.parse(dob_var);
 
@@ -329,24 +332,19 @@ public class RutinBulanFragment extends Fragment
 
 //                        date = new SimpleDateFormat("dd/MM/yyyy").format(dateObject);
 //                        time = new SimpleDateFormat("h:mmaa").format(dateObject);
-                    }
-
-                    catch (java.text.ParseException e)
-                    {
+                    } catch (java.text.ParseException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                         Log.i("E11111111111", e.toString());
                     }
 
 
-
                     Toast.makeText(getContext(), "update db", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
 
                     helper.insert(tanggalTabungan, jenisAkun, saldo);
                     Toast.makeText(getContext(), "insert db", Toast.LENGTH_SHORT).show();
                 }
-
 
 
                 slideUp.animateOut();
@@ -355,13 +353,13 @@ public class RutinBulanFragment extends Fragment
                 RutinDbHelper helper1 = new RutinDbHelper(getContext());
                 listRutin = helper1.selectAll();
                 List<Rutin> asd = new ArrayList<>();
-                for(Rutin rutin :listRutin){
+                for (Rutin rutin : listRutin) {
                     Calendar cal = Calendar.getInstance();
                     cal.setTimeInMillis(rutin.getTimeInMilis());
                     Log.v("getlongfdb", String.valueOf(rutin.getTimeInMilis()));
                     int m = cal.get(Calendar.MONTH);
-                    if(m == a){
-                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getJenisAkun(),rutin.getSaldo()));
+                    if (m == a) {
+                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(), rutin.getJenisAkun(), rutin.getSaldo()));
                         totalPerbulan = totalPerbulan + rutin.getSaldo();
                     }
                 }
@@ -371,7 +369,9 @@ public class RutinBulanFragment extends Fragment
                 rvRutin.setAdapter(adapter);
                 slideUp.animateOut();
                 fab_rutin.show();
-                tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
+                String total = decimalFormat.format(totalPerbulan);
+                tvTotalPerbulan.setText("Rp " + total);
+//                tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
 
                 clear();
                 idForUpdate = -1;
@@ -383,7 +383,7 @@ public class RutinBulanFragment extends Fragment
 
             case R.id.et_tanggal_tabungan:
                 Calendar cal = Calendar.getInstance();
-                DatePickerDialog dialog = new DatePickerDialog(getContext(),  this,
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), this,
                         cal.get(Calendar.YEAR),
                         cal.get(Calendar.MONTH),
                         cal.get(Calendar.DAY_OF_MONTH));
@@ -415,7 +415,7 @@ public class RutinBulanFragment extends Fragment
 
     }
 
-    void clear(){
+    void clear() {
         etSaldo.setText("");
         etTanggalTabungan.setText("");
         etJenisAkun.setText("");
