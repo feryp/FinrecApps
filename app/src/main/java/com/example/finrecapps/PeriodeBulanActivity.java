@@ -31,11 +31,6 @@ import java.util.List;
 public class PeriodeBulanActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     Spinner spinnerBulan;
-
-    List<Rutin> listRutin;
-
-    List<Rutin> listPilihan;
-
     int position;
 
 
@@ -118,33 +113,6 @@ public class PeriodeBulanActivity extends AppCompatActivity implements AdapterVi
                 break;
         }
 
-//        Fragment fragment = getSupportFragmentManager().getFragments().get(this.position);
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .detach(fragment)
-//                .attach(fragment)
-//                .commit();
-//        Toast.makeText(this, "position "+this.position, Toast.LENGTH_SHORT).show();
-
-
-//        RutinDbHelper helper = new RutinDbHelper(this);
-//        listRutin = helper.selectAll();
-//
-//        for(Rutin rutin :listRutin){
-//            Calendar cal = Calendar.getInstance();
-//            cal.setTimeInMillis(rutin.getTimeInMilis());
-//            cal.setTimeInMillis(rutin.getTimeInMilis());
-//
-//            int y = cal.get(Calendar.YEAR);
-//            int m = cal.get(Calendar.MONTH);
-//            int d = cal.get(Calendar.DAY_OF_MONTH);
-//            Log.v("testselect", y + " " + m + " "+d);
-//            Log.v("position", m + " p "+ position);
-//            if(m == position){
-//                listPilihan.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getJenisAkun(),rutin.getSaldo()));
-//
-//            }
-//        }
     }
 
     @Override
@@ -158,7 +126,4 @@ public class PeriodeBulanActivity extends AppCompatActivity implements AdapterVi
         return false;
     }
 
-    List getListPilihan(){
-        return listPilihan;
-    }
 }

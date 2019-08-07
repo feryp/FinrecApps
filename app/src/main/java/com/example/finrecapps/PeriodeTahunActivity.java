@@ -1,6 +1,7 @@
 package com.example.finrecapps;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,10 @@ import android.widget.Toast;
 
 import com.example.finrecapps.Adapter.PagerBulanAdapter;
 import com.example.finrecapps.Adapter.PagerTahunAdapter;
+import com.example.finrecapps.Fragment.DadakanBulanFragment;
+import com.example.finrecapps.Fragment.KasBulanFragment;
+import com.example.finrecapps.Fragment.RekapBulanFragment;
+import com.example.finrecapps.Fragment.RutinBulanFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,6 +25,9 @@ import java.util.Calendar;
 public class PeriodeTahunActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Spinner spinnerTahun;
+
+    int fragmentPosition;
+    int year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +40,7 @@ public class PeriodeTahunActivity extends AppCompatActivity implements AdapterVi
 
         ArrayList<String> tahun = new ArrayList<String>();
         int thisTahun = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = 1900; i <= thisTahun; i++) {
+        for (int i = 2010; i <= thisTahun; i++) {
             tahun.add(Integer.toString(i));
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -58,6 +66,7 @@ public class PeriodeTahunActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                fragmentPosition = tab.getPosition();
             }
 
             @Override
@@ -75,6 +84,31 @@ public class PeriodeTahunActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(this, parent.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putInt("year", parent.getCount());
+        Fragment f;
+        switch(this.fragmentPosition){
+            case 0:
+                f = new RutinBulanFragment();
+                f.setArguments(bundle);
+//                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+                break;
+            case 1:
+                f = new KasBulanFragment();
+                f.setArguments(bundle);
+//                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+                break;
+            case 2:
+                f = new DadakanBulanFragment();
+                f.setArguments(bundle);
+//                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+                break;
+            case 3:
+                f = new RekapBulanFragment();
+                f.setArguments(bundle);
+//                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+                break;
+        }
     }
 
     @Override

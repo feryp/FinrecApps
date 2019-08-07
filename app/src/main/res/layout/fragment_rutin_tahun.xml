@@ -8,105 +8,101 @@
     android:orientation="vertical"
     tools:context=".Fragment.RutinTahunFragment">
 
-    <RelativeLayout
+
+    <SearchView
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/container_rutin"
+        android:searchHintIcon="@color/colorWhite"
+        app:queryHint="Cari data rutin" />
 
-        <SearchView
-            android:id="@+id/searchView"
+    <LinearLayout
+        android:id="@+id/container_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_below="@+id/searchView"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_rutin"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:scrollbars="vertical">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/container_total_bulan_rutin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/container_recyclerView">
+
+        <TextView
+            android:id="@+id/tv_ket_total_perbulan_rutin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/container_rutin"
-            android:searchHintIcon="@color/colorWhite"
-            app:queryHint="Cari data rutin" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Total Rutin Perbulan"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
 
-        <LinearLayout
-            android:id="@+id/container_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="420dp"
-            android:layout_below="@+id/searchView"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_rutin"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:scrollbars="vertical">
-
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/container_total_bulan_rutin"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_total_perbulan_rutin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/container_recyclerView">
-
-            <TextView
-                android:id="@+id/tv_ket_total_perbulan_rutin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Total Rutin Perbulan"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_total_perbulan_rutin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center"
-                android:layout_marginRight="60dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Rp. 0"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/container_total_tahun_rutin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/container_total_bulan_rutin">
-
-            <TextView
-                android:id="@+id/tv_ket_total_pertahun_rutin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Total Rutin Pertahun"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_jumlah_pertahun_rutin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center"
-                android:layout_marginRight="60dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Rp. 0"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Rp. 0"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/container_total_tahun_rutin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/container_total_bulan_rutin">
+
+        <TextView
+            android:id="@+id/tv_ket_total_pertahun_rutin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Total Rutin Pertahun"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_jumlah_pertahun_rutin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Rp. 0"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
 
 </LinearLayout>
