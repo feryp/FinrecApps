@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,8 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     TextView ChangePassword;
     EditText etUsername, etPassword;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,14 +34,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // START SHARED PREF
-        SharedPreferences sharedPref = this.getSharedPreferences(
+        SharedPreferences sharedPref = ((LoginActivity)this).getSharedPreferences(
                 getString(R.string.shared_pref_password), Context.MODE_PRIVATE);
-
-        if(sharedPref.getBoolean("isLogin", true)){
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
-        }
 
         Log.d("asd", sharedPref.getString("pass", "dev"));
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -66,18 +57,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 SharedPreferences pref = getBaseContext().getSharedPreferences(
                         getString(R.string.shared_pref_password), Context.MODE_PRIVATE);
-                String pass = pref.getString("pass", "admin");
+                String pass = pref.getString("pass", null);
                 String etPass = etPassword.getText().toString();
-
                 Toast.makeText(LoginActivity.this, "shared"+ pass, Toast.LENGTH_SHORT).show();
                 Log.v("sharedPreference", pass);
                 if(username.equalsIgnoreCase("admin")&&etPass.equalsIgnoreCase(pass)){
-                    SharedPreferences.Editor edt = pref.edit();
-                    edt.putBoolean("isLogin",true);
-                    edt.apply();
                     Intent login = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(login);
-                    finish();
                 }else{
                     Toast.makeText(LoginActivity.this, "Password Salah", Toast.LENGTH_SHORT).show();
                 }
