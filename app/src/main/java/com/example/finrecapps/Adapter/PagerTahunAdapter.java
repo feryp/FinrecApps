@@ -4,10 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.finrecapps.Fragment.DadakanFragment;
-import com.example.finrecapps.Fragment.KasFragment;
-import com.example.finrecapps.Fragment.RekapFragment;
-import com.example.finrecapps.Fragment.RutinFragment;
+import com.example.finrecapps.Fragment.DadakanTahunFragment;
+import com.example.finrecapps.Fragment.KasTahunFragment;
+import com.example.finrecapps.Fragment.RekapTahunFragment;
+import com.example.finrecapps.Fragment.RutinTahunFragment;
 
 public class PagerTahunAdapter extends FragmentStatePagerAdapter {
 
@@ -23,17 +23,17 @@ public class PagerTahunAdapter extends FragmentStatePagerAdapter {
 
         switch (i) {
             case 0:
-                RutinFragment rutinFragment = new RutinFragment();
-                return rutinFragment;
+                RutinTahunFragment rutinTahunFragment = new RutinTahunFragment();
+                return rutinTahunFragment;
             case 1:
-                KasFragment kasFragment = new KasFragment();
-                return kasFragment;
+                KasTahunFragment kasTahunFragment = new KasTahunFragment();
+                return kasTahunFragment;
             case 2:
-                DadakanFragment dadakanFragment = new DadakanFragment();
-                return dadakanFragment;
+                DadakanTahunFragment dadakanTahunFragment = new DadakanTahunFragment();
+                return dadakanTahunFragment;
             case 3:
-                RekapFragment rekapFragment = new RekapFragment();
-                return rekapFragment;
+                RekapTahunFragment rekapTahunFragment = new RekapTahunFragment();
+                return rekapTahunFragment;
             default:
                 return null;
         }

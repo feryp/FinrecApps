@@ -22,7 +22,7 @@ public class PeriodeBulanActivity extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_periode_bulan);
 
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.tab_layout_bulan);
 
         spinnerBulan = findViewById(R.id.spinner_bulan);
 

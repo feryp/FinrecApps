@@ -1,48 +1,24 @@
 package com.example.finrecapps.Fragment;
 
-import android.app.DatePickerDialog;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 
 import com.example.finrecapps.Adapter.RutinAdapter;
-import com.example.finrecapps.Database.RutinDbHelper;
-import com.example.finrecapps.MainActivity;
 import com.example.finrecapps.Model.Rutin;
 import com.example.finrecapps.R;
 import com.mancj.slideup.SlideUp;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
 
 
-public class RutinFragment extends Fragment  {
+public class RutinBulanFragment extends Fragment  {
 
     private SlideUp slideUp;
     private View scrim;
@@ -69,7 +45,7 @@ public class RutinFragment extends Fragment  {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View v = inflater.inflate(R.layout.fragment_rutin, container, false);
+        final View v = inflater.inflate(R.layout.fragment_rutin_bulan, container, false);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

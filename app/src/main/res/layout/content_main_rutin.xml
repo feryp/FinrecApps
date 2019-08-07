@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="10dp"
     tools:context=".MainActivity"
-    tools:showIn="@layout/fragment_rutin">
+    tools:showIn="@layout/fragment_rutin_bulan">
 
     <LinearLayout
         android:id="@+id/slideView"

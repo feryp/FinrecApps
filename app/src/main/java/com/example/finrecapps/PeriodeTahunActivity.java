@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.finrecapps.Adapter.PagerBulanAdapter;
+import com.example.finrecapps.Adapter.PagerTahunAdapter;
 
 public class PeriodeTahunActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -22,7 +23,7 @@ public class PeriodeTahunActivity extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_periode_tahun);
 
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.tab_layout_tahun);
 
         spinnerTahun = findViewById(R.id.spinner_tahun);
 
@@ -42,7 +43,7 @@ public class PeriodeTahunActivity extends AppCompatActivity implements AdapterVi
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = findViewById(R.id.pagerTahun);
-        final PagerAdapter pagerAdapter = new PagerBulanAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        final PagerAdapter pagerAdapter = new PagerTahunAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
