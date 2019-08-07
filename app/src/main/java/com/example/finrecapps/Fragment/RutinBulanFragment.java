@@ -33,6 +33,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -53,6 +54,7 @@ public class RutinBulanFragment extends Fragment
 
     int a ;
 
+    RutinAdapter.OnItemClickListener listener;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,6 +68,26 @@ public class RutinBulanFragment extends Fragment
         View v = inflater.inflate(R.layout.fragment_rutin_bulan, container, false);
 
 
+        listener = new RutinAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, Rutin rutin) {
+                slideUp.animateIn();
+                fab_rutin.hide();
+                etJenisAkun.setText(rutin.getJenisAkun());
+
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(rutin.getTimeInMilis());
+                // Creating date format
+                SimpleDateFormat simple = new SimpleDateFormat("dd MMM yyyy");
+
+                // Creating date from milliseconds
+                // using Date() constructor
+                Date da = c.getTime();
+                String fors = simple.format(da);
+                etTanggalTabungan.setText(fors);
+                etSaldo.setText(String.valueOf(rutin.getSaldo()));
+            }
+        };
 
         // INIT VIEW
         rvRutin = v.findViewById(R.id.rv_rutin);
@@ -100,6 +122,7 @@ public class RutinBulanFragment extends Fragment
                 slideUp.animateOut();
                 fab_rutin.show();
 
+
             }
         });
 
@@ -119,7 +142,7 @@ public class RutinBulanFragment extends Fragment
             }
 
 
-            adapter = new RutinAdapter(getContext(), listRutin);
+            adapter = new RutinAdapter(getContext(), listRutin,listener);
 //            rvRutin.notifyAll();
             rvRutin.setAdapter(adapter);
 
@@ -193,7 +216,7 @@ public class RutinBulanFragment extends Fragment
 
                     }
                 }
-                adapter = new RutinAdapter(getContext(), asd);
+                adapter = new RutinAdapter(getContext(), asd, listener);
                 adapter.notifyDataSetChanged();
                 rvRutin.setAdapter(adapter);
 
@@ -230,6 +253,7 @@ public class RutinBulanFragment extends Fragment
             public void onVisibilityChanged(int i) {
                 if (i == View.GONE){
                     fab_rutin.show();
+                    clear();
                 }
 
             }
@@ -269,7 +293,7 @@ public class RutinBulanFragment extends Fragment
                 }
 
 
-                adapter = new RutinAdapter(getContext(), asd);
+                adapter = new RutinAdapter(getContext(), asd, listener);
                 rvRutin.setAdapter(adapter);
                 slideUp.animateOut();
                 fab_rutin.show();
