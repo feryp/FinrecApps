@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.example.finrecapps.Adapter.PagerBulanAdapter;
 import com.example.finrecapps.Adapter.PagerTahunAdapter;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 public class PeriodeTahunActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Spinner spinnerTahun;
@@ -27,10 +30,14 @@ public class PeriodeTahunActivity extends AppCompatActivity implements AdapterVi
 
         spinnerTahun = findViewById(R.id.spinner_tahun);
 
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(
+        ArrayList<String> tahun = new ArrayList<String>();
+        int thisTahun = Calendar.getInstance().get(Calendar.YEAR);
+        for (int i = 1900; i <= thisTahun; i++) {
+            tahun.add(Integer.toString(i));
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
-                R.array.tahun_arrays,
-                R.layout.simple_spinner_dropdown);
+                R.layout.simple_spinner_dropdown, tahun);
 
         adapter.setDropDownViewResource(R.layout.color_spinner);
         spinnerTahun.setAdapter(adapter);

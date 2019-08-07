@@ -16,11 +16,12 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            app:queryHint="Cari data rutin"
-            android:background="@drawable/container_rutin"/>
+            android:background="@drawable/container_rutin"
+            android:searchHintIcon="@color/colorWhite"
+            app:queryHint="Cari data rutin" />
 
         <LinearLayout
             android:id="@+id/container_recyclerView"
