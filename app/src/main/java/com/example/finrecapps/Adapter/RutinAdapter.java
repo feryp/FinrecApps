@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.finrecapps.Database.RutinDbHelper;
 import com.example.finrecapps.MainActivity;
 import com.example.finrecapps.Model.Rutin;
+import com.example.finrecapps.PeriodeBulanActivity;
 import com.example.finrecapps.R;
 
 import java.text.DateFormat;
@@ -66,7 +67,7 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
 
         String fors = simple.format(da);
         rutinViewHolder.tvTanggal.setText(fors);
-        rutinViewHolder.tvTotalTabungan.setText(String.valueOf(rutinModel.getTotalTabungan()));
+        rutinViewHolder.tvJenisAkun.setText(rutinModel.getJenisAkun());
         rutinViewHolder.tvSaldo.setText(String.valueOf(rutinModel.getSaldo()));
         rutinViewHolder.bind(rutinList.get(i));
 
@@ -89,7 +90,7 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
 
     public class RutinViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        private TextView tvTotalTabungan, tvSaldo, tvTanggal;
+        private TextView tvJenisAkun, tvSaldo, tvTanggal;
 
         Rutin rutin;
 
@@ -98,19 +99,13 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
 
             v.setOnClickListener(this);
             v.setOnLongClickListener(this);
-//            tvTotalTabungan = v.findViewById(R.id.tv_nilai_total_tabungan);
-//            tvSaldo = v.findViewById(R.id.tv_nilai_saldo);
+            tvJenisAkun = v.findViewById(R.id.tv_jenis_rutin);
+            tvSaldo = v.findViewById(R.id.tv_jumlah_rutin);
             tvTanggal = v.findViewById(R.id.tv_waktu);
 
         }
 
-        public TextView getTvTotalTabungan() {
-            return tvTotalTabungan;
-        }
 
-        public void setTvTotalTabungan(TextView tvTotalTabungan) {
-            this.tvTotalTabungan = tvTotalTabungan;
-        }
 
         public void bind(Rutin rutin) {
             this.rutin = rutin;
@@ -142,8 +137,8 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
 
                             Toast.makeText(itemView.getContext(), deletedRows + " item terhapus", Toast.LENGTH_SHORT).show();
                             Context context = itemView.getContext();
-                            ((MainActivity) context).finish();
-                            context.startActivity(new Intent(context, MainActivity.class));
+                            ((PeriodeBulanActivity) context).finish();
+                            context.startActivity(new Intent(context, PeriodeBulanActivity.class));
                             dialog.dismiss();
                         }
                     });

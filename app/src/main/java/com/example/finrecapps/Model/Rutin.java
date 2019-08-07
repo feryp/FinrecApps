@@ -4,16 +4,16 @@ public class Rutin {
 
     private String id;
     private long timeInMilis;
-    private double totalTabungan;
+    private String jenisAkun;
     private double saldo;
 
     public Rutin() {
     }
 
-    public Rutin(String id, long timeInMilis, double totalTabungan, double saldo) {
+    public Rutin(String id, long timeInMilis, String jenisAkun, double saldo) {
         this.id = id;
         this.timeInMilis = timeInMilis;
-        this.totalTabungan = totalTabungan;
+        this.jenisAkun = jenisAkun;
         this.saldo = saldo;
     }
 
@@ -33,12 +33,12 @@ public class Rutin {
         this.timeInMilis = timeInMilis;
     }
 
-    public double getTotalTabungan() {
-        return totalTabungan;
+    public String getJenisAkun() {
+        return jenisAkun;
     }
 
-    public void setTotalTabungan(double totalTabungan) {
-        this.totalTabungan = totalTabungan;
+    public void setJenisAkun(String jenisAkun) {
+        this.jenisAkun = jenisAkun;
     }
 
     public double getSaldo() {

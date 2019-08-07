@@ -25,7 +25,7 @@ public class RutinDbHelper extends SQLiteOpenHelper {
             + RutinEntry.TABLE_NAME + " ("
             + RutinEntry._ID + " INTEGER PRIMARY KEY, "
             + RutinEntry.COLUMN_TANGGAL_RUTIN + " INTEGER, "
-            + RutinEntry.COLUMN_TOTAL_TABUNGAN + " REAL, "
+            + RutinEntry.COLUMN_JENIS_AKUN + " TEXT, "
             + RutinEntry.COLUMN_SALDO + " REAL)";
 
 
@@ -53,15 +53,15 @@ public class RutinDbHelper extends SQLiteOpenHelper {
     }
 
 
-    public long insert(long tanggalRutinInMilis, double totalTabungan, double saldo) {
+    public long insert(long tanggalRutinInMilis, String jenisAkun, double saldo) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(RutinEntry.COLUMN_TANGGAL_RUTIN, tanggalRutinInMilis);
-        values.put(RutinEntry.COLUMN_TOTAL_TABUNGAN, totalTabungan);
+        values.put(RutinEntry.COLUMN_JENIS_AKUN, jenisAkun);
         values.put(RutinEntry.COLUMN_SALDO, saldo);
 
-        Log.v("INSERT", tanggalRutinInMilis + " " + totalTabungan + " " + saldo);
+        Log.v("INSERT", tanggalRutinInMilis + " " + jenisAkun + " " + saldo);
 
 
         return db.insertOrThrow(RutinEntry.TABLE_NAME, null, values);
@@ -81,18 +81,24 @@ public class RutinDbHelper extends SQLiteOpenHelper {
         List<Rutin> rutinList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
-            Rutin r = new Rutin(cursor.getString(cursor.getColumnIndexOrThrow(RutinEntry._ID)),
-                    cursor.getLong(cursor.getColumnIndexOrThrow(RutinEntry.COLUMN_TANGGAL_RUTIN)),
-                    cursor.getDouble(cursor.getColumnIndexOrThrow(RutinEntry.COLUMN_TOTAL_TABUNGAN)),
-                    cursor.getDouble(cursor.getColumnIndexOrThrow(RutinEntry.COLUMN_SALDO))
+            String id =cursor.getString(cursor.getColumnIndexOrThrow(RutinEntry._ID));
+            long tanggal = cursor.getLong(cursor.getColumnIndexOrThrow(RutinEntry.COLUMN_TANGGAL_RUTIN));
+            String jenisAkun = cursor.getString(cursor.getColumnIndexOrThrow(RutinEntry.COLUMN_JENIS_AKUN));
+            double saldo = cursor.getDouble(cursor.getColumnIndexOrThrow(RutinEntry.COLUMN_SALDO));
+
+            Rutin r = new Rutin(id,
+                    tanggal,
+                    jenisAkun,
+                    saldo
             );
 
+            Log.v("selectAll()",id + " "+ tanggal + " " + jenisAkun + " "+ saldo);
             rutinList.add(r);
         }
 
         cursor.close();
 
-        return rutinList;
+        return new ArrayList<>(rutinList);
 
     }
 
@@ -109,7 +115,7 @@ public class RutinDbHelper extends SQLiteOpenHelper {
         return db.delete(RutinEntry.TABLE_NAME, selection, selectionArgs);
     }
 
-    public int update(int id, long tanggalRutinInMilis, double totalTabungan, double saldo){
+    public int update(int id, long tanggalRutinInMilis, String jenisAkun, double saldo){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -117,12 +123,11 @@ public class RutinDbHelper extends SQLiteOpenHelper {
         String selection = RutinEntry._ID + " = ?";
         String[] selectionArgs = { String.valueOf(id) };
 
-// New value for one column
-
+        // New value for one column
         ContentValues values = new ContentValues();
 
         values.put(RutinEntry.COLUMN_TANGGAL_RUTIN, tanggalRutinInMilis);
-        values.put(RutinEntry.COLUMN_TOTAL_TABUNGAN, totalTabungan);
+        values.put(RutinEntry.COLUMN_JENIS_AKUN, jenisAkun);
         values.put(RutinEntry.COLUMN_SALDO, saldo);
 
 

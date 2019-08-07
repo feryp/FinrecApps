@@ -1,10 +1,15 @@
 package com.example.finrecapps;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,10 +17,28 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.finrecapps.Adapter.PagerBulanAdapter;
+import com.example.finrecapps.Database.RutinDbHelper;
+import com.example.finrecapps.Fragment.DadakanBulanFragment;
+import com.example.finrecapps.Fragment.KasBulanFragment;
+import com.example.finrecapps.Fragment.RekapBulanFragment;
+import com.example.finrecapps.Fragment.RutinBulanFragment;
+import com.example.finrecapps.Model.Rutin;
 
-public class PeriodeBulanActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+public class PeriodeBulanActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     Spinner spinnerBulan;
+
+    List<Rutin> listRutin;
+
+    List<Rutin> listPilihan;
+
+    int position;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +73,7 @@ public class PeriodeBulanActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                position = tab.getPosition();
             }
 
             @Override
@@ -67,10 +91,74 @@ public class PeriodeBulanActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(this, parent.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("month", position);
+        Fragment f;
+        switch(this.position){
+            case 0:
+                f = new RutinBulanFragment();
+                f.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+                break;
+            case 1:
+                f = new KasBulanFragment();
+                f.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+                break;
+            case 2:
+                f = new DadakanBulanFragment();
+                f.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+                break;
+            case 3:
+                f = new RekapBulanFragment();
+                f.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+                break;
+        }
+
+//        Fragment fragment = getSupportFragmentManager().getFragments().get(this.position);
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .detach(fragment)
+//                .attach(fragment)
+//                .commit();
+//        Toast.makeText(this, "position "+this.position, Toast.LENGTH_SHORT).show();
+
+
+//        RutinDbHelper helper = new RutinDbHelper(this);
+//        listRutin = helper.selectAll();
+//
+//        for(Rutin rutin :listRutin){
+//            Calendar cal = Calendar.getInstance();
+//            cal.setTimeInMillis(rutin.getTimeInMilis());
+//            cal.setTimeInMillis(rutin.getTimeInMilis());
+//
+//            int y = cal.get(Calendar.YEAR);
+//            int m = cal.get(Calendar.MONTH);
+//            int d = cal.get(Calendar.DAY_OF_MONTH);
+//            Log.v("testselect", y + " " + m + " "+d);
+//            Log.v("position", m + " p "+ position);
+//            if(m == position){
+//                listPilihan.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getJenisAkun(),rutin.getSaldo()));
+//
+//            }
+//        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        return false;
+    }
+
+    List getListPilihan(){
+        return listPilihan;
     }
 }

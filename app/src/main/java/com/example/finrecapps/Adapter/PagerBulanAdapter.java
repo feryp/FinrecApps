@@ -22,6 +22,7 @@ public class PagerBulanAdapter extends FragmentStatePagerAdapter {
         switch (i) {
             case 0:
                 RutinBulanFragment rutinBulanFragment = new RutinBulanFragment();
+                
                 return rutinBulanFragment;
             case 1:
                 KasBulanFragment kasBulanFragment = new KasBulanFragment();
