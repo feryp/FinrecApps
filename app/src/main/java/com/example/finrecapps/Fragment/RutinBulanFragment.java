@@ -50,39 +50,9 @@ public class RutinBulanFragment extends Fragment
     long tgl;
     List<Rutin> listRutin;
     RutinAdapter adapter;
-//    int containerId;
-//
-//    private interface OnSelectedItemCallback{
-//        void OnSelectedItem();
-//    }
-//
-//    private OnSelectedItemCallback callback;
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        callback = (OnSelectedItemCallback) context;
-//    }
-
-    //    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()){
-//            case R.id.spinner_bulan:
-//
-//                return false;
-//            default:
-//                break;
-//        }
-//        return false;
-//    }
 
     int a ;
 
-    List<Rutin> filterList;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,9 +63,7 @@ public class RutinBulanFragment extends Fragment
             a = 0;
         }
 
-        final View v = inflater.inflate(R.layout.fragment_rutin_bulan, container, false);
-
-//        Toast.makeText(getContext(), "fragment with "+ a + "month", Toast.LENGTH_SHORT).show();
+        View v = inflater.inflate(R.layout.fragment_rutin_bulan, container, false);
 
 
 
@@ -103,7 +71,7 @@ public class RutinBulanFragment extends Fragment
         rvRutin = v.findViewById(R.id.rv_rutin);
         rvRutin.setLayoutManager(new LinearLayoutManager(getContext()));
         rvRutin.setHasFixedSize(true);
-//        spinnerBulan = container.findViewById(R.id.spinner_bulan);
+        spinnerBulan = getActivity().findViewById(R.id.spinner_bulan);
         slideView = v.findViewById(R.id.slideView);
         scrim = v.findViewById(R.id.scrim);
         fab_rutin = v.findViewById(R.id.fab_rutin);
@@ -135,20 +103,11 @@ public class RutinBulanFragment extends Fragment
             }
         });
 
-        listRutin = new ArrayList<>();
-        if(adapter!= null){
-            listRutin.clear();
-            listRutin.addAll(filterList);
-            adapter.notifyDataSetChanged();
-        }
-
-
-
         try{
 
             RutinDbHelper helper = new RutinDbHelper(getContext());
             listRutin = helper.selectAll();
-            filterList = new ArrayList<>();
+            List<Rutin> filterList = new ArrayList<>();
             for(Rutin rutin :listRutin){
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(rutin.getTimeInMilis());
@@ -160,25 +119,21 @@ public class RutinBulanFragment extends Fragment
             }
 
 
-            adapter = new RutinAdapter(getContext(), filterList);
-
-
-
+            adapter = new RutinAdapter(getContext(), listRutin);
 //            rvRutin.notifyAll();
             rvRutin.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
 
             Log.v("itemCount",adapter.getItemCount()+"");
         }catch(NullPointerException ex){
             ex.printStackTrace();
         }
 
-//        spinnerBulan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                spinnerBulan.getSelectedItem();
+        spinnerBulan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerBulan.getSelectedItem();
 //                Log.v("position", )
-//                rvRutin.removeAllViews();
+                rvRutin.removeAllViews();
 //
 //                String as = null;
 //                switch (position){
@@ -220,43 +175,40 @@ public class RutinBulanFragment extends Fragment
 //                        break;
 //                }
 
-//                RutinDbHelper helper = new RutinDbHelper(getContext());
-//                listRutin = helper.selectAll();
-//                List<Rutin> asd = new ArrayList<>();
-//                for(Rutin rutin :listRutin){
-//                    Calendar cal = Calendar.getInstance();
-//                    cal.setTimeInMillis(rutin.getTimeInMilis());
-//                    cal.setTimeInMillis(rutin.getTimeInMilis());
-//
-//                    int y = cal.get(Calendar.YEAR);
-//                    int m = cal.get(Calendar.MONTH);
-//                    int d = cal.get(Calendar.DAY_OF_MONTH);
-//                    Log.v("testselect", y + " " + m + " "+d);
-//                    Log.v("position", m + " p "+ position);
-//                    if(m == position){
-//                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getJenisAkun(),rutin.getSaldo()));
-//
-//                    }
-//                }
-//                adapter = new RutinAdapter(getContext(), asd);
-//                adapter.notifyDataSetChanged();
-//                rvRutin.setAdapter(adapter);
-//
-//
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+                RutinDbHelper helper = new RutinDbHelper(getContext());
+                listRutin = helper.selectAll();
+                List<Rutin> asd = new ArrayList<>();
+                for(Rutin rutin :listRutin){
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTimeInMillis(rutin.getTimeInMilis());
+                    cal.setTimeInMillis(rutin.getTimeInMilis());
+
+                    int y = cal.get(Calendar.YEAR);
+                    int m = cal.get(Calendar.MONTH);
+                    int d = cal.get(Calendar.DAY_OF_MONTH);
+                    Log.v("testselect", y + " " + m + " "+d);
+                    Log.v("position", m + " p "+ position);
+                    if(m == position){
+                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getJenisAkun(),rutin.getSaldo()));
+
+                    }
+                }
+                adapter = new RutinAdapter(getContext(), asd);
+                adapter.notifyDataSetChanged();
+                rvRutin.setAdapter(adapter);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 //
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(),R.array.bulan_arrays, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
-//        spinnerBulan.setAdapter(adapter);
+
 
         fab_rutin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -280,29 +232,14 @@ public class RutinBulanFragment extends Fragment
                     fab_rutin.show();
                 }
 
-
             }
         });
-
-
-
-//        etTotalTabungan = v.findViewById(R.id.et_total_tabungan);
-//        etSaldo = v.findViewById(R.id.et_saldo);
-
-
-
-
-
-//        btnSimpan.setOnClickListener(this);
-//        btnHapus.setOnClickListener(this);
-//        etTanggalTabungan.setOnClickListener(this);
 
 
 
         return v;
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -323,11 +260,11 @@ public class RutinBulanFragment extends Fragment
                 List<Rutin> asd = new ArrayList<>();
                 for(Rutin rutin :listRutin){
                     Calendar cal = Calendar.getInstance();
-                    cal.setTimeInMillis(Long.valueOf(rutin.getTimeInMilis()));
+                    cal.setTimeInMillis(rutin.getTimeInMilis());
                     Log.v("getlongfdb", String.valueOf(rutin.getTimeInMilis()));
                     int m = cal.get(Calendar.MONTH);
                     if(m == a){
-                        asd.add(new Rutin(rutin.getId(), Long.valueOf(rutin.getTimeInMilis()),rutin.getJenisAkun(),rutin.getSaldo()));
+                        asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getJenisAkun(),rutin.getSaldo()));
                     }
                 }
 
@@ -346,7 +283,10 @@ public class RutinBulanFragment extends Fragment
 
             case R.id.et_tanggal_tabungan:
                 Calendar cal = Calendar.getInstance();
-                DatePickerDialog dialog = new DatePickerDialog(getContext(),  this, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                DatePickerDialog dialog = new DatePickerDialog(getContext(),  this,
+                        cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH),
+                        cal.get(Calendar.DAY_OF_MONTH));
 
                 dialog.show();
 
