@@ -74,8 +74,6 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
         rutinViewHolder.tvSaldo.setText(String.valueOf(rutinModel.getSaldo()));
         rutinViewHolder.bind(rutinList.get(i));
 
-        FragmentManager manager = ((AppCompatActivity)this.c).getSupportFragmentManager();
-
 
     }
 
