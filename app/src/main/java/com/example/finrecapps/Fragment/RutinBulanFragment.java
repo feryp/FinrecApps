@@ -2,6 +2,7 @@ package com.example.finrecapps.Fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -11,16 +12,19 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.finrecapps.Adapter.RutinAdapter;
@@ -51,8 +55,14 @@ public class RutinBulanFragment extends Fragment
     long tgl;
     List<Rutin> listRutin;
     RutinAdapter adapter;
+    TextView tvTotalPerbulan;
 
     int a ;
+
+    int idForUpdate;
+    boolean isUpdate;
+
+    double totalPerbulan;
 
     RutinAdapter.OnItemClickListener listener;
     @Override
@@ -65,27 +75,42 @@ public class RutinBulanFragment extends Fragment
             a = 0;
         }
 
+        totalPerbulan = 0;
         View v = inflater.inflate(R.layout.fragment_rutin_bulan, container, false);
 
 
         listener = new RutinAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, Rutin rutin) {
+
+
                 slideUp.animateIn();
                 fab_rutin.hide();
-                etJenisAkun.setText(rutin.getJenisAkun());
 
+                isUpdate = true;
+
+                int id = Integer.parseInt(rutin.getId());
+                idForUpdate = id;
+                long tgl = rutin.getTimeInMilis();
+                String jenis = rutin.getJenisAkun();
+                double saldo = rutin.getSaldo();
+
+                etJenisAkun.setText(jenis);
+
+                // FORMAT DATE
                 Calendar c = Calendar.getInstance();
-                c.setTimeInMillis(rutin.getTimeInMilis());
-                // Creating date format
+                c.setTimeInMillis(tgl);
                 SimpleDateFormat simple = new SimpleDateFormat("dd MMM yyyy");
-
-                // Creating date from milliseconds
-                // using Date() constructor
                 Date da = c.getTime();
                 String fors = simple.format(da);
+                // FORMAT DATE END
+
                 etTanggalTabungan.setText(fors);
-                etSaldo.setText(String.valueOf(rutin.getSaldo()));
+                etSaldo.setText(String.valueOf(saldo));
+
+
+
+
             }
         };
 
@@ -113,8 +138,13 @@ public class RutinBulanFragment extends Fragment
         etTanggalTabungan = v.findViewById(R.id.et_tanggal_tabungan);
         etTanggalTabungan.setKeyListener(null);
         etTanggalTabungan.setOnClickListener(this);
-
+        tvTotalPerbulan = v.findViewById(R.id.tv_total_jumlah_pebulan);
         // INIT VIEW END
+
+
+
+
+
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,8 +166,9 @@ public class RutinBulanFragment extends Fragment
                 cal.setTimeInMillis(rutin.getTimeInMilis());
                 Log.v("getlongfdb", String.valueOf(rutin.getTimeInMilis()));
                 int m = cal.get(Calendar.MONTH);
-                if(m == a){
+                if(m == 0){
                     filterList.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getJenisAkun(),rutin.getSaldo()));
+                    totalPerbulan = totalPerbulan + rutin.getSaldo();
                 }
             }
 
@@ -145,6 +176,7 @@ public class RutinBulanFragment extends Fragment
             adapter = new RutinAdapter(getContext(), listRutin,listener);
 //            rvRutin.notifyAll();
             rvRutin.setAdapter(adapter);
+            tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
 
             Log.v("itemCount",adapter.getItemCount()+"");
         }catch(NullPointerException ex){
@@ -154,6 +186,7 @@ public class RutinBulanFragment extends Fragment
         spinnerBulan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                totalPerbulan = 0;
                 spinnerBulan.getSelectedItem();
 //                Log.v("position", )
                 rvRutin.removeAllViews();
@@ -213,12 +246,13 @@ public class RutinBulanFragment extends Fragment
                     Log.v("position", m + " p "+ position);
                     if(m == position){
                         asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getJenisAkun(),rutin.getSaldo()));
-
+                        totalPerbulan = totalPerbulan + rutin.getSaldo();
                     }
                 }
                 adapter = new RutinAdapter(getContext(), asd, listener);
                 adapter.notifyDataSetChanged();
                 rvRutin.setAdapter(adapter);
+                tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
 
 
             }
@@ -254,6 +288,7 @@ public class RutinBulanFragment extends Fragment
                 if (i == View.GONE){
                     fab_rutin.show();
                     clear();
+                    isUpdate = false;
                 }
 
             }
@@ -268,13 +303,51 @@ public class RutinBulanFragment extends Fragment
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnSimpan:
-
+                totalPerbulan = 0;
                 long tanggalTabungan = tgl;
                 String jenisAkun = etJenisAkun.getText().toString();
                 double saldo = Double.parseDouble(etSaldo.getText().toString());
 
                 RutinDbHelper helper = new RutinDbHelper(getContext());
-                helper.insert(tanggalTabungan, jenisAkun, saldo);
+
+
+                if(isUpdate){
+                    long time;
+                    DateFormat formatter = new SimpleDateFormat("dd MMM yyyy"); // Make sure user insert date into edittext in this format.
+
+                    Date dateObject;
+
+                    try{
+                        String dob_var=(etTanggalTabungan.getText().toString());
+
+                        dateObject = formatter.parse(dob_var);
+
+                        Calendar c = Calendar.getInstance();
+                        c.setTime(dateObject);
+                        time = c.getTimeInMillis();
+                        helper.update(idForUpdate, time, jenisAkun, saldo);
+
+//                        date = new SimpleDateFormat("dd/MM/yyyy").format(dateObject);
+//                        time = new SimpleDateFormat("h:mmaa").format(dateObject);
+                    }
+
+                    catch (java.text.ParseException e)
+                    {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                        Log.i("E11111111111", e.toString());
+                    }
+
+
+
+                    Toast.makeText(getContext(), "update db", Toast.LENGTH_SHORT).show();
+                }else{
+
+                    helper.insert(tanggalTabungan, jenisAkun, saldo);
+                    Toast.makeText(getContext(), "insert db", Toast.LENGTH_SHORT).show();
+                }
+
+
 
                 slideUp.animateOut();
                 fab_rutin.show();
@@ -289,6 +362,7 @@ public class RutinBulanFragment extends Fragment
                     int m = cal.get(Calendar.MONTH);
                     if(m == a){
                         asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(),rutin.getJenisAkun(),rutin.getSaldo()));
+                        totalPerbulan = totalPerbulan + rutin.getSaldo();
                     }
                 }
 
@@ -297,8 +371,10 @@ public class RutinBulanFragment extends Fragment
                 rvRutin.setAdapter(adapter);
                 slideUp.animateOut();
                 fab_rutin.show();
+                tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
 
                 clear();
+                idForUpdate = -1;
 
                 break;
             case R.id.btnHapus:
@@ -344,5 +420,6 @@ public class RutinBulanFragment extends Fragment
         etTanggalTabungan.setText("");
         etJenisAkun.setText("");
     }
+
 }
 

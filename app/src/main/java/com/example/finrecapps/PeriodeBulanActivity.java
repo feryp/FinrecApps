@@ -99,22 +99,22 @@ public class PeriodeBulanActivity extends AppCompatActivity implements AdapterVi
             case 0:
                 f = new RutinBulanFragment();
                 f.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+//                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
                 break;
             case 1:
                 f = new KasBulanFragment();
                 f.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+//                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
                 break;
             case 2:
                 f = new DadakanBulanFragment();
                 f.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+//                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
                 break;
             case 3:
                 f = new RekapBulanFragment();
                 f.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
+//                getSupportFragmentManager().beginTransaction().detach(f).attach(f).commit();
                 break;
         }
 
