@@ -25,6 +25,7 @@ import com.example.finrecapps.PeriodeBulanActivity;
 import com.example.finrecapps.R;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -68,10 +69,14 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
         // given format
         System.out.println(simple.format(da));
 
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
+
         String fors = simple.format(da);
+        String jml = decimalFormat.format(rutinList.get(i).getSaldo());
         rutinViewHolder.tvTanggal.setText(fors);
         rutinViewHolder.tvJenisAkun.setText(rutinModel.getJenisAkun());
-        rutinViewHolder.tvSaldo.setText(String.valueOf(rutinModel.getSaldo()));
+        rutinViewHolder.tvJumlah.setText("Rp. " + jml);
+//        rutinViewHolder.tvSaldo.setText(String.valueOf(rutinModel.getSaldo()));
         rutinViewHolder.bind(rutinList.get(i));
 
 
@@ -94,17 +99,18 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
 
     public class RutinViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        private TextView tvJenisAkun, tvSaldo, tvTanggal;
+        private TextView tvJenisAkun, tvJumlah, tvTanggal;
 
         Rutin rutin;
 
         public RutinViewHolder(@NonNull View v) {
             super(v);
 
+
             v.setOnClickListener(this);
             v.setOnLongClickListener(this);
             tvJenisAkun = v.findViewById(R.id.tv_isi_rutin);
-            tvSaldo = v.findViewById(R.id.tv_jumlah_rutin);
+            tvJumlah = v.findViewById(R.id.tv_jumlah_rutin);
             tvTanggal = v.findViewById(R.id.tv_waktu);
 
         }

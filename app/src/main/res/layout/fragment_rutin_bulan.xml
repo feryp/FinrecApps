@@ -25,7 +25,7 @@
         <LinearLayout
             android:id="@+id/container_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="420dp"
             android:layout_below="@+id/searchView"
             android:orientation="vertical">
 
@@ -52,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Total Rutin"
@@ -62,9 +63,9 @@
                 android:id="@+id/tv_total_jumlah_pebulan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_gravity="center"
-                android:layout_marginRight="60dp"
+                android:layout_below="@+id/tv_ket_total_rutin"
+                android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Rp. 0"
