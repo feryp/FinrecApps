@@ -103,7 +103,7 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
 
             v.setOnClickListener(this);
             v.setOnLongClickListener(this);
-            tvJenisAkun = v.findViewById(R.id.tv_jenis_rutin);
+            tvJenisAkun = v.findViewById(R.id.tv_isi_rutin);
             tvSaldo = v.findViewById(R.id.tv_jumlah_rutin);
             tvTanggal = v.findViewById(R.id.tv_waktu);
 
