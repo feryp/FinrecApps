@@ -11,6 +11,7 @@ public class RutinContract {
         public static final String COLUMN_TANGGAL_RUTIN = "tanggal_rutin";
         public static final String COLUMN_TOTAL_TABUNGAN = "total_tabungan";
         public static final String COLUMN_SALDO = "saldo";
+        public static final String COLUMN_PERODE = "periode";
 
     }
 }

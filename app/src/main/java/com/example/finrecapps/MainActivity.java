@@ -1,6 +1,5 @@
 package com.example.finrecapps;
 
-
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
         periode_bulan = findViewById(R.id.container_bulan);
         periode_tahun = findViewById(R.id.container_tahun);
+
+
 
         periode_bulan.setOnClickListener(new View.OnClickListener() {
             @Override

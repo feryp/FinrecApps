@@ -41,4 +41,6 @@
         <item>2014</item>
         <item>2013</item>
     </string-array>
+
+    <string name="shared_pref_password">com.example.finrecapps.SHARED_PREF_PASSWORD</string>
 </resources>
