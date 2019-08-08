@@ -111,7 +111,8 @@ public class RutinBulanFragment extends Fragment
                 // FORMAT DATE END
 
                 etTanggalTabungan.setText(fors);
-                etSaldo.setText(String.valueOf(saldo));
+                etSaldo.setText("Rp. " + saldo);
+//                etSaldo.setText(String.valueOf(saldo));
 
 
             }
@@ -178,7 +179,7 @@ public class RutinBulanFragment extends Fragment
 //            rvRutin.notifyAll();
             rvRutin.setAdapter(adapter);
             String total = decimalFormat.format(totalPerbulan);
-            tvTotalPerbulan.setText("Rp " + total);
+            tvTotalPerbulan.setText("Rp. " + total);
 //            tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
 
             Log.v("itemCount", adapter.getItemCount() + "");
@@ -256,7 +257,7 @@ public class RutinBulanFragment extends Fragment
                 adapter.notifyDataSetChanged();
                 rvRutin.setAdapter(adapter);
                 String total = decimalFormat.format(totalPerbulan);
-                tvTotalPerbulan.setText("Rp " + total);
+                tvTotalPerbulan.setText("Rp. " + total);
 //                tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
 
 
@@ -370,7 +371,7 @@ public class RutinBulanFragment extends Fragment
                 slideUp.animateOut();
                 fab_rutin.show();
                 String total = decimalFormat.format(totalPerbulan);
-                tvTotalPerbulan.setText("Rp " + total);
+                tvTotalPerbulan.setText("Rp. " + total);
 //                tvTotalPerbulan.setText(String.valueOf(totalPerbulan));
 
                 clear();
@@ -421,7 +422,7 @@ public class RutinBulanFragment extends Fragment
         etJenisAkun.setText("");
     }
 
-    public Context getRutinBln(){
+    public Context getRutinBln() {
         return getContext();
     }
 

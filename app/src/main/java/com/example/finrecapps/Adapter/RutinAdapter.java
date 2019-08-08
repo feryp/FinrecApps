@@ -87,7 +87,7 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
         String fors = simple.format(da);
         rutinViewHolder.tvTanggal.setText(fors);
         rutinViewHolder.tvJenisAkun.setText(rutinModel.getJenisAkun());
-        rutinViewHolder.tvSaldo.setText("Rp " + as);
+        rutinViewHolder.tvSaldo.setText("Rp. " + as);
 //        rutinViewHolder.tvSaldo.setText(String.valueOf(rutinModel.getSaldo()));
         rutinViewHolder.bind(rutinList.get(i), listener);
 

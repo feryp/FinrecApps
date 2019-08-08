@@ -84,7 +84,7 @@ public class RutinTahunFragment extends Fragment {
 //            rvRutin.notifyAll();
             rvRutin.setAdapter(adapter);
             String total = decimalFormat.format(totalPertahun);
-            tvJmlPertahun.setText("Rp " + total);
+            tvJmlPertahun.setText("Rp. " + total);
 
         } catch (NullPointerException ex) {
             ex.printStackTrace();
@@ -119,7 +119,7 @@ public class RutinTahunFragment extends Fragment {
                     adapter = new RutinAdapter(getContext(), filterList, null);
                     rvRutin.setAdapter(adapter);
                     String total = decimalFormat.format(totalPertahun);
-                    tvJmlPertahun.setText("Rp " + total);
+                    tvJmlPertahun.setText("Rp. " + total);
 
                 } catch (NullPointerException ex) {
                     ex.printStackTrace();
