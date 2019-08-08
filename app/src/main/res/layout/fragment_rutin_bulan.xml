@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_coordinator"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     tools:context=".Fragment.RutinBulanFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <SearchView
             android:id="@+id/searchView"
@@ -23,59 +25,52 @@
             android:searchHintIcon="@color/colorWhite"
             app:queryHint="Cari data rutin" />
 
-        <LinearLayout
-            android:id="@+id/container_recyclerView"
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_rutin"
             android:layout_width="match_parent"
-            android:layout_height="420dp"
-            android:layout_below="@+id/searchView"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="15dp"
+            android:scrollbars="vertical" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_rutin"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:scrollbars="vertical">
-
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/container_total_rutin"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_ket_total_rutin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/container_recyclerView">
 
-            <TextView
-                android:id="@+id/tv_ket_total_rutin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Total Rutin"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Total Rutin"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_total_jumlah_pebulan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_below="@+id/tv_ket_total_rutin"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Rp. 0"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_total_jumlah_pebulan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_ket_total_rutin"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Rp. 0"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
 
-        </RelativeLayout>
+    </LinearLayout>
 
-    </RelativeLayout>
+    <!--<RelativeLayout
+        android:id="@+id/container_total_rutin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/container_recyclerView">
+
+
+
+    </RelativeLayout>-->
+
 
     <FrameLayout
         android:id="@+id/scrim"

@@ -429,9 +429,6 @@ public class RutinBulanFragment extends Fragment
         etJenisAkun.setText("");
     }
 
-    public Context getRutinBln() {
-        return getContext();
-    }
 
     @Override
     public boolean onBackPressed() {
