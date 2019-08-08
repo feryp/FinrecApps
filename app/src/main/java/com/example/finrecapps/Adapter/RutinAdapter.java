@@ -1,5 +1,6 @@
 package com.example.finrecapps.Adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import com.example.finrecapps.Fragment.RutinBulanFragment;
 import com.example.finrecapps.MainActivity;
 import com.example.finrecapps.Model.Rutin;
 import com.example.finrecapps.PeriodeBulanActivity;
+import com.example.finrecapps.PeriodeTahunActivity;
 import com.example.finrecapps.R;
 
 import java.text.DateFormat;
@@ -47,6 +50,12 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
         this.c = c;
         this.rutinList = rutinList;
         this.listener = listener;
+    }
+
+    public RutinAdapter(Context c, List<Rutin> rutinList) {
+        this.c = c;
+        this.rutinList = rutinList;
+        this.listener = null;
     }
 
     @NonNull
@@ -119,8 +128,10 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(v, rutin);
-
+                    try {
+                        listener.onItemClick(v, rutin);
+                    }catch(NullPointerException ex){
+                    }
                 }
             });
         }
@@ -130,7 +141,20 @@ public class RutinAdapter extends RecyclerView.Adapter<RutinAdapter.RutinViewHol
 
         @Override
         public boolean onLongClick(View v) {
-            showDialog();
+
+            Activity as = new PeriodeBulanActivity();
+            Activity context = (Activity)itemView.getContext();
+
+            String bulan = as.toString().substring(0, as.toString().length() - 8);
+            String current = context.toString().substring(0, context.toString().length() - 8);
+
+            Log.v("context123", context.toString() + " " + as.toString());
+
+            if(!current.equals(bulan)){
+
+            }else{
+                showDialog();
+            }
             return false;
         }
 

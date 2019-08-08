@@ -27,7 +27,7 @@ public class PeriodeTahunActivity extends AppCompatActivity implements AdapterVi
     Spinner spinnerTahun;
 
     int fragmentPosition;
-    int year;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

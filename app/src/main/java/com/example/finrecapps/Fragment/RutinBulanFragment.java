@@ -346,9 +346,6 @@ public class RutinBulanFragment extends Fragment
                     Toast.makeText(getContext(), "insert db", Toast.LENGTH_SHORT).show();
                 }
 
-
-                slideUp.animateOut();
-                fab_rutin.show();
                 rvRutin.removeAllViews();
                 RutinDbHelper helper1 = new RutinDbHelper(getContext());
                 listRutin = helper1.selectAll();
@@ -358,7 +355,7 @@ public class RutinBulanFragment extends Fragment
                     cal.setTimeInMillis(rutin.getTimeInMilis());
                     Log.v("getlongfdb", String.valueOf(rutin.getTimeInMilis()));
                     int m = cal.get(Calendar.MONTH);
-                    if (m == a) {
+                    if (m == spinnerBulan.getSelectedItemPosition()) {
                         asd.add(new Rutin(rutin.getId(), rutin.getTimeInMilis(), rutin.getJenisAkun(), rutin.getSaldo()));
                         totalPerbulan = totalPerbulan + rutin.getSaldo();
                     }
@@ -366,7 +363,9 @@ public class RutinBulanFragment extends Fragment
 
 
                 adapter = new RutinAdapter(getContext(), asd, listener);
+                adapter.notifyDataSetChanged();
                 rvRutin.setAdapter(adapter);
+
                 slideUp.animateOut();
                 fab_rutin.show();
                 String total = decimalFormat.format(totalPerbulan);
@@ -409,8 +408,8 @@ public class RutinBulanFragment extends Fragment
         Calendar s = Calendar.getInstance();
         s.setTimeInMillis(tgl);
 
-        Log.v("testinsert", String.valueOf(s.getTimeInMillis()));
-        Log.v("testinsert", String.valueOf(s.get(Calendar.MONTH)));
+//        Log.v("testinsert", String.valueOf(s.getTimeInMillis()));
+//        Log.v("testinsert", String.valueOf(s.get(Calendar.MONTH)));
 
 
     }
@@ -419,6 +418,10 @@ public class RutinBulanFragment extends Fragment
         etSaldo.setText("");
         etTanggalTabungan.setText("");
         etJenisAkun.setText("");
+    }
+
+    public Context getRutinBln(){
+        return getContext();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.finrecapps;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -32,6 +33,8 @@ public class PeriodeBulanActivity extends AppCompatActivity implements AdapterVi
 
     Spinner spinnerBulan;
     int position;
+
+
 
 
 
@@ -125,5 +128,7 @@ public class PeriodeBulanActivity extends AppCompatActivity implements AdapterVi
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         return false;
     }
+
+
 
 }
