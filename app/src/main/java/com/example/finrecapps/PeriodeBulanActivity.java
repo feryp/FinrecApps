@@ -35,9 +35,6 @@ public class PeriodeBulanActivity extends AppCompatActivity implements AdapterVi
     int position;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +116,15 @@ public class PeriodeBulanActivity extends AppCompatActivity implements AdapterVi
     }
 
     @Override
+    public void onBackPressed() {
+//        getSupportFragmentManager().getFragments().get(0);
+        Fragment fragment = getSupportFragmentManager().getFragments().get(0);
+        if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
+//            super.onBackPressed();
+        }
+    }
+
+    @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
@@ -129,6 +135,10 @@ public class PeriodeBulanActivity extends AppCompatActivity implements AdapterVi
         return false;
     }
 
+
+    public interface IOnBackPressed{
+        boolean onBackPressed();
+    }
 
 
 }

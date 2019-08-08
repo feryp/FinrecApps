@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.example.finrecapps.Adapter.RutinAdapter;
 import com.example.finrecapps.Database.RutinDbHelper;
 import com.example.finrecapps.Model.Rutin;
+import com.example.finrecapps.PeriodeBulanActivity;
 import com.example.finrecapps.R;
 import com.mancj.slideup.SlideUp;
 
@@ -44,7 +45,7 @@ import java.util.List;
 
 
 public class RutinBulanFragment extends Fragment
-        implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
+        implements View.OnClickListener, DatePickerDialog.OnDateSetListener, PeriodeBulanActivity.IOnBackPressed {
 
     private SlideUp slideUp;
     private View scrim;
@@ -432,5 +433,22 @@ public class RutinBulanFragment extends Fragment
         return getContext();
     }
 
+    @Override
+    public boolean onBackPressed() {
+        if(slideView.getVisibility() == View.VISIBLE){
+            slideUp.animateOut();
+            fab_rutin.show();
+        }else{
+            getActivity().finish();
+        }
+        return false;
+    }
+
+//    public void myOnKeyDown(int keyCode, KeyEvent event){
+//        //do whatever you want here
+//        if(event.getRepeatCount() == 0 && slideView.getVisibility() == View.VISIBLE){
+//
+//        }
+//    }
 }
 
