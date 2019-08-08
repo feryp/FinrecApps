@@ -33,6 +33,7 @@ import com.example.finrecapps.Model.Rutin;
 import com.example.finrecapps.R;
 import com.mancj.slideup.SlideUp;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -97,8 +98,11 @@ public class RutinBulanFragment extends Fragment
                 idForUpdate = id;
                 long tgl = rutin.getTimeInMilis();
                 String jenis = rutin.getJenisAkun();
+
+
                 double saldo = rutin.getSaldo();
-                String fmtSaldo = decimalFormat.format(saldo);
+                BigDecimal decimal = new BigDecimal(saldo);
+//                String fmtSaldo = decimalFormat.format(saldo);
 
 
                 etJenisAkun.setText(jenis);
@@ -112,7 +116,7 @@ public class RutinBulanFragment extends Fragment
                 // FORMAT DATE END
 
                 etTanggalTabungan.setText(fors);
-                etSaldo.setText("Rp. " + fmtSaldo);
+                etSaldo.setText(decimal.toString());
 //                etSaldo.setText(String.valueOf(saldo));
 
 
@@ -348,6 +352,7 @@ public class RutinBulanFragment extends Fragment
                     helper.insert(tanggalTabungan, jenisAkun, saldo);
                     Toast.makeText(getContext(), "insert db", Toast.LENGTH_SHORT).show();
                 }
+
 
                 rvRutin.removeAllViews();
                 RutinDbHelper helper1 = new RutinDbHelper(getContext());
