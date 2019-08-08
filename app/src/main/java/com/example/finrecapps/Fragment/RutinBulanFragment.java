@@ -97,7 +97,8 @@ public class RutinBulanFragment extends Fragment
                 idForUpdate = id;
                 long tgl = rutin.getTimeInMilis();
                 String jenis = rutin.getJenisAkun();
-                double saldo = rutin.getSaldo();
+                String saldo = decimalFormat.format(rutin.getSaldo());
+//                double saldo = rutin.getSaldo();
 
                 etJenisAkun.setText(jenis);
 
